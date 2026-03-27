@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="뽀모도로 타이머로 공부하고, 오늘의 집중 기록을 인스타그램 스토리 카드로 만들어 공유하세요. #공스타그램">
+  <meta name="keywords" content="뽀모도로, 공부 타이머, 공스타그램, 공부 기록, 인스타 스토리 카드">
+  <meta property="og:title" content="📚 공부 기록 카드 메이커 | 뽀모도로 타이머">
+  <meta property="og:description" content="오늘의 집중 시간을 예쁜 인스타그램 스토리 카드로 만들어보세요 #공스타그램">
+  <meta property="og:image" content="https://pomodoro-study-card.vercel.app/preview.png">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0F172A">
+  <title>📚 공부 기록 카드 | 뽀모도로 타이머</title>
+  <!-- ADSENSE_HEAD -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ADSENSE_SLOT_TOP -->
+  <!-- 광고 슬롯: 상단 배너 (728x90 or 320x50 mobile) -->
+  <div class="ad-slot ad-slot--top" id="adSlotTop">
+    <!-- ADSENSE_SLOT_1 -->
+  </div>
+
+  <div class="app-wrapper">
+    <!-- 헤더 -->
+    <header class="app-header">
+      <div class="header-brand">
+        <span class="header-icon">📚</span>
+        <span class="header-title">공부 기록 카드</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn-icon" id="btnTheme" aria-label="테마 전환" title="다크/라이트 전환">
+          <svg id="iconMoon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg id="iconSun" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 안내 문구 -->
+    <div class="info-banner">
+      📌 오늘 기록만 저장됩니다. 매일 자정에 초기화돼요.
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="app-main">
+      <!-- 뽀모도로 인디케이터 -->
+      <div class="pomodoro-dots" id="pomatoDots">
+        <div class="dot" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+        <div class="dot" data-index="3"></div>
+      </div>
+
+      <!-- 타이머 섹션 -->
+      <section class="timer-section">
+        <div class="timer-mode-label" id="modeLabel">집중 시간</div>
+
+        <!-- SVG 프로그레스 링 -->
+        <div class="timer-ring-wrapper">
+          <svg class="timer-ring" viewBox="0 0 200 200">
+            <circle class="ring-bg" cx="100" cy="100" r="88"/>
+            <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="88"
+              stroke-dasharray="553"
+              stroke-dashoffset="0"
+              transform="rotate(-90 100 100)"/>
+          </svg>
+          <div class="timer-display">
+            <div class="timer-time" id="timerDisplay">25:00</div>
+            <div class="timer-session" id="sessionLabel">1 / 4</div>
+          </div>
+        </div>
+
+        <!-- 타이머 컨트롤 -->
+        <div class="timer-controls">
+          <button class="btn btn--secondary btn--sm" id="btnReset" aria-label="리셋">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.8"/>
+            </svg>
+          </button>
+          <button class="btn btn--primary btn--lg" id="btnStart" aria-label="시작">
+            <svg id="iconPlay" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <svg id="iconPause" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+            </svg>
+          </button>
+          <button class="btn btn--secondary btn--sm" id="btnSkip" aria-label="건너뛰기" title="다음 세션으로">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- 과목 선택 -->
+        <div class="subject-section" id="subjectSection">
+          <div class="subject-select-row">
+            <select class="subject-select" id="subjectSelect" aria-label="과목 선택">
+              <option value="">과목 선택 (선택사항)</option>
+            </select>
+            <button class="btn btn--ghost btn--sm" id="btnAddSubject" aria-label="과목 추가">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              과목 추가
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- AdSense 슬롯 (타이머 하단, 집중 중 숨김) -->
+      <div class="ad-slot ad-slot--mid" id="adSlotMid">
+        <!-- ADSENSE_SLOT_2 -->
+      </div>
+
+      <!-- 오늘의 통계 -->
+      <section class="stats-section" id="statsSection">
+        <div class="stats-header">
+          <h2 class="stats-title">오늘의 기록</h2>
+          <div class="total-time" id="totalTimeDisplay">0분</div>
+        </div>
+
+        <!-- 스켈레톤 (초기 로딩) -->
+        <div class="skeleton-list" id="skeletonList">
+          <div class="skeleton skeleton--row"></div>
+          <div class="skeleton skeleton--row"></div>
+        </div>
+
+        <!-- 과목별 통계 -->
+        <div class="subject-stats" id="subjectStats" style="display:none">
+          <!-- JS로 렌더링 -->
+        </div>
+
+        <!-- 완료된 뽀모도로가 없을 때 -->
+        <div class="empty-state" id="emptyState" style="display:none">
+          <div class="empty-icon">🍅</div>
+          <p>아직 기록이 없어요<br>첫 뽀모도로를 시작해볼까요?</p>
+        </div>
+
+        <!-- 카드 생성 버튼 -->
+        <button class="btn btn--accent btn--full" id="btnCreateCard" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+          오늘의 카드 만들기 ✨
+        </button>
+      </section>
+    </main>
+
+    <!-- 사이드바 광고 (데스크탑) -->
+    <aside class="ad-sidebar" id="adSidebar">
+      <!-- ADSENSE_SLOT_3 -->
+    </aside>
+  </div>
+
+  <!-- 과목 추가 모달 -->
+  <div class="modal-overlay" id="addSubjectModal" role="dialog" aria-modal="true" aria-label="과목 추가">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>과목 추가</h3>
+        <button class="btn-icon" id="btnCloseModal" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-hint">최대 5개까지 추가할 수 있어요</p>
+        <div class="input-row">
+          <input type="text" class="text-input" id="subjectInput" placeholder="예: 수학, 영어, 국어..." maxlength="10" aria-label="과목명">
+          <button class="btn btn--primary" id="btnConfirmSubject">추가</button>
+        </div>
+        <div class="subject-chips" id="subjectChips">
+          <!-- JS로 렌더링 -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 카드 미리보기 모달 -->
+  <div class="modal-overlay" id="cardModal" role="dialog" aria-modal="true" aria-label="공부 기록 카드">
+    <div class="modal modal--card">
+      <div class="modal-header">
+        <h3>오늘의 공부 카드</h3>
+        <button class="btn-icon" id="btnCloseCardModal" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="card-preview-wrapper">
+          <canvas id="studyCard" width="540" height="960"></canvas>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn--secondary" id="btnCardThemeDark">🌙 다크</button>
+          <button class="btn btn--secondary" id="btnCardThemeLight">☀️ 라이트</button>
+        </div>
+        <button class="btn btn--accent btn--full" id="btnDownloadCard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          PNG 저장하기
+        </button>
+        <p class="card-hint">인스타그램 스토리에 올려보세요 📱</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- html2canvas CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="app.js"></script>
+  <script src="card.js"></script>
+</body>
+</html>
